@@ -41,6 +41,20 @@
 	}
 
 	/**
+	 * Check if the template is references
+	 * @param {jQuery} $template
+	 * @return {boolean} Whether the template is references or not.
+	 */
+	function isReferences( $template ) {
+		if ( $template.is( '[typeof*="mw:Extension/references"]' ) ||
+			$template.find( '[typeof*="mw:Extension/references"]' ).length ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Simple check for inline templates.
 	 * @param {jQuery} $template
 	 * @return {boolean} Whether the template is inline or not.
@@ -122,6 +136,13 @@
 
 			if ( isInlineTemplate( $template ) ) {
 				mw.log( '[CX] Keeping inline template: ' + templateName );
+				return;
+			}
+			// Even if the template configuration has not whitelisted the references
+			// template, we must keep it to get the references in published article
+			// working. So try to identify references template and keep it.
+			if ( isReferences( $template ) ) {
+				mw.log( '[CX] Keeping references template: ' + templateName );
 			} else {
 				mw.log( '[CX] Removing template: ' + templateName );
 				sourceFilter.removeTemplate( $template );
