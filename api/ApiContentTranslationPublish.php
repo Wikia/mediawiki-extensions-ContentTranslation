@@ -170,6 +170,9 @@ class ApiContentTranslationPublish extends ApiBase {
 	public function publish() {
 		$params = $this->extractRequestParams();
 		$user = $this->getUser();
+		if ( $user->isAnon() ) {
+			$this->dieUsage( 'To publish a translation, you must log in', 'notloggedin' );
+		}
 
 		$targetTitle = ContentTranslation\SiteMapper::getTargetTitle(
 			$params['title'],
@@ -270,6 +273,9 @@ class ApiContentTranslationPublish extends ApiBase {
 			return;
 		}
 		$user = $this->getUser();
+		if ( $user->isAnon() ) {
+			$this->dieUsage( 'To save a translation, you must log in', 'notloggedin' );
+		}
 		$translator = new ContentTranslation\Translator( $user );
 
 		if ( !$wgContentTranslationTranslateInTarget ) {

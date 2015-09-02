@@ -62,9 +62,10 @@
 		var fetchPageUrl,
 			cxSource = this;
 
-		fetchPageUrl = this.siteMapper.getCXServerUrl( '/page/$language/$title', {
+		fetchPageUrl = this.siteMapper.getCXServerUrl( '/page/$language/$title/$apiUrl', {
 			$language: language,
-			$title: title
+			$title: title,
+			$apiUrl: mw.config.get( 'wgServer' ) + mw.config.get( 'wgScriptPath' ).replace( '/' + mw.config.get( 'wgContentLanguage' ) + '-', '/' + language + '-' ) + '/api.php'
 		} );
 
 		$.get( fetchPageUrl )

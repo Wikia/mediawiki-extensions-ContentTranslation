@@ -79,13 +79,13 @@
 	 * Remove all non-Commons images since we cannot use it in target wiki.
 	 */
 	function removeNonCommonsImages() {
-		$( '[typeof*="mw:Image/Thumb"] img' ).each( function () {
+		/*$( '[typeof*="mw:Image/Thumb"] img' ).each( function () {
 			var $image = $( this );
 
 			if ( !isCommonsImage( $image ) ) {
 				$image.parents( 'figure' ).remove();
 			}
-		} );
+		} );*/
 	}
 
 	function adaptImage( $section ) {
